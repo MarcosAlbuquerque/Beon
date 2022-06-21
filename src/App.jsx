@@ -15,8 +15,8 @@ function App() {
   useEffect(() => {
     fetch(
       `http://localhost:4000/books${filter}${buttonFind}${
-        filterYearMin ? filterYearMin : ``
-      }${filterYearMax ? filterYearMax : ``}`
+        filterYearMin ? `&year_gte=${filterYearMin}` : ``
+      }${filterYearMax ? `&year_lte=${filterYearMax}` : ``}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -41,7 +41,7 @@ function App() {
             />
             <strong>Filtrar por Ano: </strong>
             <input
-              onChange={({ target }) => setfilterYearMin(`&year_gte=${target.value}`)}
+              onChange={({ target }) => setfilterYearMin(target.value)}
               type='number'
               max='2099'
               step='1'
@@ -49,7 +49,7 @@ function App() {
               placeholder='min'
             />
             <input
-              onChange={({ target }) => setfilterYearMax(`&year_lte=${target.value}`)}
+              onChange={({ target }) => setfilterYearMax(target.value)}
               type='number'
               max='2099'
               step='1'
@@ -97,8 +97,7 @@ function App() {
           <div>
             <button
               onClick={() => {
-                setPage(1);
-                setFilter(`?_page=${page}`);
+                setFilter(`?_page=1`);
               }}
             >
               Início
