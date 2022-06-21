@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function App() {
   const [API, setAPI] = useState();
@@ -60,6 +60,8 @@ function App() {
               type='submit'
               onClick={() => {
                 setLoading(true);
+                setPage(1);
+                setFilter(`?_page=1`);
                 setButtonFind(`&q=${inputFind}`);
               }}
             >
@@ -89,7 +91,11 @@ function App() {
                   <td key={nanoid()}>{book.author}</td>
                   <td key={nanoid()}>{book.country}</td>
                   <td key={nanoid()}>{book.year}</td>
-                  <td key={nanoid()}>Detalhes</td>
+                  <td key={nanoid()}>
+                    <Link to='/detalhes' state={book}>
+                      Navegar
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
