@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { Link, Outlet } from 'react-router-dom';
 
 function App() {
-  const [API, setAPI] = useState();
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [inputFind, setInputFind] = useState('');
-  const [buttonFind, setButtonFind] = useState(inputFind);
   const [page, setPage] = useState(1);
+  const [searchField, setSearchField] = useState('');
+  const [search, setSearch] = useState(searchField);
   const [filter, setFilter] = useState(`?_page=${page}`);
-  const [filterYearMin, setfilterYearMin] = useState();
-  const [filterYearMax, setfilterYearMax] = useState();
+  const [filterYearMin, setfilterYearMin] = useState(null);
+  const [filterYearMax, setfilterYearMax] = useState(null);
 
   useEffect(() => {
     fetch(
-      `http://localhost:4000/books${filter}${buttonFind}${
-        filterYearMin ? `&year_gte=${filterYearMin}` : ``
-      }${filterYearMax ? `&year_lte=${filterYearMax}` : ``}`
+      `http://localhost:4000/books` +
+        filter +
+        search +
+        (filterYearMin ? `&year_gte=${filterYearMin}` : ``) +
+        (filterYearMax ? `&year_lte=${filterYearMax}` : ``)
     )
       .then((res) => res.json())
-      .then((data) => {
+      .then((res) => {
         setLoading(false);
-        setAPI(data);
+        setData(res);
       });
-  }, [loading, filter, buttonFind, page]);
+  }, [loading, filter, search, page]);
 
   return (
     <>
@@ -35,9 +37,9 @@ function App() {
             <input
               type='text'
               id='findbook'
-              placeholder='Autor, país, título'
-              value={inputFind}
-              onChange={({ target }) => setInputFind(target.value)}
+              placeholder='Pesquise por autor, país ou título'
+              value={searchField}
+              onChange={({ target }) => setSearchField(target.value)}
             />
             <strong>Filtrar por Ano: </strong>
             <input
@@ -62,14 +64,14 @@ function App() {
                 setLoading(true);
                 setPage(1);
                 setFilter(`?_page=1`);
-                setButtonFind(`&q=${inputFind}`);
+                setSearch(`&q=${searchField}`);
               }}
             >
               Pesquisar
             </button>
           </div>
           <div>
-            <strong>{loading ? <p>Aguarde</p> : API.length} livros encontrados</strong>
+            <strong>{loading ? <p>Aguarde</p> : data.length} livros encontrados</strong>
           </div>
         </nav>
       </header>
@@ -84,8 +86,9 @@ function App() {
                 <th>Autor</th>
                 <th>País</th>
                 <th>Ano</th>
+                <th>Ações</th>
               </tr>
-              {API.map((book) => (
+              {data.map((book) => (
                 <tr key={nanoid()}>
                   <td key={nanoid()}>{book.title}</td>
                   <td key={nanoid()}>{book.author}</td>
@@ -93,7 +96,7 @@ function App() {
                   <td key={nanoid()}>{book.year}</td>
                   <td key={nanoid()}>
                     <Link to='/detalhes' state={book}>
-                      Navegar
+                      Detalhes
                     </Link>
                   </td>
                 </tr>
@@ -115,7 +118,7 @@ function App() {
                 setFilter(`?_page=${page + 1}`);
                 setPage((prev) => (prev += 1));
               }}
-              disabled={API.length < 10 ? true : false}
+              disabled={data.length < 10 ? true : false}
             >
               Avançar
             </button>
