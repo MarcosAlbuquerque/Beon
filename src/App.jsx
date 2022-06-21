@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [API, setAPI] = useState();
@@ -8,17 +9,21 @@ function App() {
   const [buttonFind, setButtonFind] = useState(inputFind);
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState(`?_page=${page}`);
-  const [filterYearMin, setfilterYearMin] = useState(0);
-  const [filterYearMax, setfilterYearMax] = useState(0);
+  const [filterYearMin, setfilterYearMin] = useState();
+  const [filterYearMax, setfilterYearMax] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/books${filter}${buttonFind}`)
+    fetch(
+      `http://localhost:4000/books${filter}${buttonFind}${
+        filterYearMin ? filterYearMin : ``
+      }${filterYearMax ? filterYearMax : ``}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
         setAPI(data);
       });
-  }, [loading, filter, buttonFind, page, filterYearMin]);
+  }, [loading, filter, buttonFind, page]);
 
   return (
     <>
@@ -36,18 +41,20 @@ function App() {
             />
             <strong>Filtrar por Ano: </strong>
             <input
-              onChange={({ target }) => setfilterYearMin(target.value)}
+              onChange={({ target }) => setfilterYearMin(`&year_gte=${target.value}`)}
               type='number'
+              max='2099'
+              step='1'
               id='filterYearMin'
               placeholder='min'
-              value={filterYearMin}
             />
             <input
-              onChange={({ target }) => setfilterYearMax(target.value)}
+              onChange={({ target }) => setfilterYearMax(`&year_lte=${target.value}`)}
               type='number'
+              max='2099'
+              step='1'
               id='filterYearMax'
               placeholder='max'
-              value={filterYearMax}
             />
             <button
               type='submit'
@@ -82,6 +89,7 @@ function App() {
                   <td key={nanoid()}>{book.author}</td>
                   <td key={nanoid()}>{book.country}</td>
                   <td key={nanoid()}>{book.year}</td>
+                  <td key={nanoid()}>Detalhes</td>
                 </tr>
               ))}
             </tbody>
