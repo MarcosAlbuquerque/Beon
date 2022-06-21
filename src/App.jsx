@@ -98,7 +98,9 @@ function App() {
             <button
               onClick={() => {
                 setFilter(`?_page=1`);
+                setPage(1);
               }}
+              disabled={page <= 1 ? true : false}
             >
               Início
             </button>
@@ -116,6 +118,7 @@ function App() {
                 setFilter(`?_page=${page - 1}`);
                 setPage((prev) => (prev <= 2 ? (prev = 1) : (prev -= 1)));
               }}
+              disabled={page <= 1 ? true : false}
             >
               Voltar
             </button>
