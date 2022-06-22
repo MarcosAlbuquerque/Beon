@@ -8,18 +8,24 @@ export default function Details() {
 
   return (
     <>
-      <Link to='/'>Voltar</Link>
-      <section>
-        <img src={imageLink} alt={title} />
-        <h1>{title}</h1>
-        <strong>{author}</strong>
-        <p>{country}</p>
-        <p>{language}</p>
-        <a href={link} rel='no-referrer'>
-          Acessar
-        </a>
-        <p>{pages}</p>
-        <p>{year}</p>
+      <Link to='/' id='backLibraries'>
+        &lt; Voltar
+      </Link>
+      <section id='details'>
+        <div>
+          <img src={imageLink} alt={title} />
+        </div>
+        <div>
+          <h1>{title}</h1>
+          <strong>Autor: {author}</strong>
+          <p>País: {country}</p>
+          <p>Idioma: {language}</p>
+          <p>Total Páginas: {pages}</p>
+          <p>Ano de publicação: {year}</p>
+          <a href={link} rel='no-referrer'>
+            Ver na Wikipédia
+          </a>
+        </div>
       </section>
     </>
   );

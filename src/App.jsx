@@ -31,7 +31,7 @@ function App() {
     <>
       <header className='App-header'>
         <h1>Lista de Livros</h1>
-        <p>Você pode filtrar através do campo de pesquisa.</p>
+        <p>Você pode também pode filtrar a pesquisa por ano.</p>
         <nav>
           <div id='find'>
             <input
@@ -41,14 +41,13 @@ function App() {
               value={searchField}
               onChange={({ target }) => setSearchField(target.value)}
             />
-            <strong>Filtrar por Ano: </strong>
             <input
               onChange={({ target }) => setfilterYearMin(target.value)}
               type='number'
               max='2099'
               step='1'
               id='filterYearMin'
-              placeholder='min'
+              placeholder='Ex: 1910'
             />
             <input
               onChange={({ target }) => setfilterYearMax(target.value)}
@@ -56,7 +55,7 @@ function App() {
               max='2099'
               step='1'
               id='filterYearMax'
-              placeholder='max'
+              placeholder='Ex: 2010'
             />
             <button
               type='submit'
@@ -70,9 +69,13 @@ function App() {
               Pesquisar
             </button>
           </div>
-          <div>
-            <strong>{loading ? <p>Aguarde</p> : data.length} livros encontrados</strong>
-          </div>
+          {loading ? (
+            <em>Buscando livros...</em>
+          ) : (
+            <p>
+              <strong>{data.length}</strong> livros encontrados
+            </p>
+          )}
         </nav>
       </header>
       {loading ? (
@@ -96,14 +99,14 @@ function App() {
                   <td key={nanoid()}>{book.year}</td>
                   <td key={nanoid()}>
                     <Link to='/detalhes' state={book}>
-                      Detalhes
+                      Ver livro
                     </Link>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div>
+          <div id='navigation'>
             <button
               onClick={() => {
                 setFilter(`?_page=1`);
