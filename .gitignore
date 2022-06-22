@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Sass generator files
+public/css/main.css
+public/css/main.css.map
