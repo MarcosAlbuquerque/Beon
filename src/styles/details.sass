@@ -1,0 +1,31 @@
+@use 'base'
+
+#backLibraries
+  color: base.$color1
+  text-decoration: none
+  font-size: 20px
+  font-family: base.$fonte1
+  margin: 20px 0
+  display: block
+
+  &:hover
+    color: base.$color2
+
+#details
+  display: flex
+  flex-direction: row
+  width: 100%
+  justify-content: space-around
+  align-items: center
+
+  div
+    height: 500px
+    img
+      padding: 5px
+    &:nth-child(1)
+      border: base.$border1
+
+    &:nth-child(2)
+      font-family: base.$fonte1
+      h1
+        font-family: base.$fonte2
