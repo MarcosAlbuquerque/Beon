@@ -1,0 +1,107 @@
+header h1, header > p {
+  font-family: Arial, sans-serif;
+}
+header input, header button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e76f51;
+}
+header input {
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  background-size: 25px;
+  text-indent: 20px;
+}
+header input:nth-child(1) {
+  background-image: url("./images/icons8-pesquisar-48.png");
+  width: 98%;
+}
+header input:nth-child(2) {
+  background-image: url("./images/icons8-spiral-calendar-48.png");
+  filter: grayscale(100%);
+}
+header input:nth-child(3) {
+  background-image: url("./images/icons8-spiral-calendar-48.png");
+}
+header button:active {
+  color: red;
+}
+header nav p {
+  font-family: Verdana, sans-serif;
+}
+
+table {
+  width: 100%;
+}
+table th {
+  text-align: left;
+  font-family: Verdana, sans-serif;
+  font-size: 20px;
+}
+table tr {
+  font-family: Arial, sans-serif;
+}
+table tr:hover {
+  background-color: #e76f51;
+}
+
+#navigation {
+  border: 1px solid #e76f51;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+#navigation button {
+  border: none;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+#navigation button:active {
+  color: red;
+}
+
+#backLibraries {
+  color: #264653;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin: 20px 0;
+  display: block;
+}
+#backLibraries:hover {
+  color: #2a9d8f;
+}
+
+#details {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+#details div {
+  height: 500px;
+}
+#details div img {
+  padding: 5px;
+}
+#details div:nth-child(1) {
+  border: 1px solid #e76f51;
+}
+#details div:nth-child(2) {
+  font-family: Arial, sans-serif;
+}
+#details div:nth-child(2) h1 {
+  font-family: Verdana, sans-serif;
+}
+
+body {
+  max-width: 1024px;
+  margin: 0 auto;
+  background-color: #f4a261;
+}
+
+/*# sourceMappingURL=main.css.map */
