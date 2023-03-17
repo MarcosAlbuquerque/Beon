@@ -13,13 +13,11 @@ function App() {
   const [filterYearMax, setfilterYearMax] = useState(null);
 
   useEffect(() => {
-    fetch(
-      `http://localhost:4000/books` +
-        filter +
-        search +
-        (filterYearMin ? `&year_gte=${filterYearMin}` : ``) +
-        (filterYearMax ? `&year_lte=${filterYearMax}` : ``)
-    )
+    const baseURL = `http://localhost:4000/books`;
+    const yearMin = filterYearMin ? `&year_gte=${filterYearMin}` : ``;
+    const yearMax = filterYearMax ? `&year_lte=${filterYearMax}` : ``;
+
+    fetch(baseURL + filter + search + yearMin + yearMax)
       .then((res) => res.json())
       .then((res) => {
         setLoading(false);
@@ -42,20 +40,20 @@ function App() {
               onChange={({ target }) => setSearchField(target.value)}
             />
             <input
-              onChange={({ target }) => setfilterYearMin(target.value)}
               type='number'
               max='2099'
               step='1'
               id='filterYearMin'
               placeholder='Ex: 1910'
+              onChange={({ target }) => setfilterYearMin(target.value)}
             />
             <input
-              onChange={({ target }) => setfilterYearMax(target.value)}
               type='number'
               max='2099'
               step='1'
               id='filterYearMax'
               placeholder='Ex: 2010'
+              onChange={({ target }) => setfilterYearMax(target.value)}
             />
             <button
               type='submit'

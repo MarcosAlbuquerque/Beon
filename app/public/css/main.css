@@ -63,6 +63,41 @@ table tr:hover {
   color: red;
 }
 
+#backLibraries {
+  color: #264653;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin: 20px 0;
+  display: block;
+}
+#backLibraries:hover {
+  color: #2a9d8f;
+}
+
+#details {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+#details div {
+  height: 500px;
+}
+#details div img {
+  padding: 5px;
+}
+#details div:nth-child(1) {
+  border: 1px solid #e76f51;
+}
+#details div:nth-child(2) {
+  font-family: Arial, sans-serif;
+}
+#details div:nth-child(2) h1 {
+  font-family: Verdana, sans-serif;
+}
+
 body {
   max-width: 1024px;
   margin: 0 auto;
